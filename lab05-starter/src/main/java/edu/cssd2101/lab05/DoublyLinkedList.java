@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A generic doubly linked list with private nodes and unmodifiable structural snapshot iteration.
- * Null elements are rejected. Equal elements are allowed; removal by value removes the first.
- * Snapshots copy links into a list but share element references; mutable element changes remain
+ * A generic doubly linked list with private nodes and unmodifiable structural
+ * snapshot iteration.
+ * Null elements are rejected. Equal elements are allowed; removal by value
+ * removes the first.
+ * Snapshots copy links into a list but share element references; mutable
+ * element changes remain
  * visible. This mutable structure is not thread-safe.
  *
  * @param <E> element type
@@ -29,7 +32,8 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
     private int size;
 
     /** Creates an empty list. */
-    public DoublyLinkedList() {}
+    public DoublyLinkedList() {
+    }
 
     /**
      * Reports the element count.
@@ -75,7 +79,7 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
      * @param index position from zero through size inclusive
      * @param value non-null element
      * @throws IndexOutOfBoundsException if the position is invalid
-     * @throws NullPointerException if value is null
+     * @throws NullPointerException      if value is null
      */
     public void insert(int index, E value) {
         Objects.checkIndex(index, size + 1);
@@ -85,10 +89,14 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
         Node<E> added = new Node<>(value);
         added.previous = predecessor;
         added.next = successor;
-        if (predecessor == null) head = added;
-        else predecessor.next = added;
-        if (successor == null) tail = added;
-        else successor.previous = added;
+        if (predecessor == null)
+            head = added;
+        else
+            predecessor.next = added;
+        if (successor == null)
+            tail = added;
+        else
+            successor.previous = added;
         size++;
     }
 
@@ -112,7 +120,26 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
      */
     public E removeAt(int index) {
         // TODO T1 list unlink: follow the task contract in the handout.
-        throw new UnsupportedOperationException("T1 list unlink not implemented");
+        Node<E> target = node(index);
+        Node<E> predecessor = target.previous;
+        Node<E> successor = target.next;
+
+        if (predecessor == null) {
+            head = successor;
+        } else {
+            predecessor.next = successor;
+        }
+
+        if (successor == null) {
+            tail = predecessor;
+        } else {
+            successor.previous = predecessor;
+        }
+
+        target.previous = null;
+        target.next = null;
+        size--;
+        return target.value;
     }
 
     /**
@@ -146,7 +173,8 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
         Objects.requireNonNull(value);
         int index = 0;
         for (Node<E> current = head; current != null; current = current.next, index++)
-            if (value.equals(current.value)) return index;
+            if (value.equals(current.value))
+                return index;
         return -1;
     }
 
@@ -159,7 +187,8 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
      */
     public boolean remove(E value) {
         int index = indexOf(value);
-        if (index < 0) return false;
+        if (index < 0)
+            return false;
         removeAt(index);
         return true;
     }
@@ -212,27 +241,32 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
      * @return true if the representation is valid
      */
     public boolean checkInvariants() {
-        if (size == 0) return head == null && tail == null;
+        if (size == 0)
+            return head == null && tail == null;
         if (head == null || tail == null || head.previous != null || tail.next != null)
             return false;
         int count = 0;
         Node<E> prior = null;
         for (Node<E> current = head; current != null; current = current.next) {
-            if (++count > size || current.previous != prior || current.value == null) return false;
+            if (++count > size || current.previous != prior || current.value == null)
+                return false;
             prior = current;
         }
-        if (prior != tail || count != size) return false;
+        if (prior != tail || count != size)
+            return false;
         count = 0;
         Node<E> after = null;
         for (Node<E> current = tail; current != null; current = current.previous) {
-            if (++count > size || current.next != after) return false;
+            if (++count > size || current.next != after)
+                return false;
             after = current;
         }
         return after == head && count == size;
     }
 
     /**
-     * Returns an iterator over an unmodifiable structural snapshot. Removal is unsupported.
+     * Returns an iterator over an unmodifiable structural snapshot. Removal is
+     * unsupported.
      *
      * @return iterator unaffected by subsequent list mutations
      */
@@ -245,11 +279,13 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
         Objects.checkIndex(index, size);
         if (index < size / 2) {
             Node<E> current = head;
-            for (int i = 0; i < index; i++) current = current.next;
+            for (int i = 0; i < index; i++)
+                current = current.next;
             return current;
         }
         Node<E> current = tail;
-        for (int i = size - 1; i > index; i--) current = current.previous;
+        for (int i = size - 1; i > index; i--)
+            current = current.previous;
         return current;
     }
 }
