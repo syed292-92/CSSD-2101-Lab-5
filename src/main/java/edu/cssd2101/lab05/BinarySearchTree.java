@@ -177,7 +177,7 @@ public final class BinarySearchTree<E> {
      */
     public List<E> preOrder() {
         // TODO T3 preorder: follow the task contract in the handout.
-        throw new UnsupportedOperationException("T3 preorder not implemented");
+        return List.copyOf(depthFirst(false));
     }
 
     /**
@@ -187,11 +187,44 @@ public final class BinarySearchTree<E> {
      */
     public List<E> postOrder() {
         // TODO T3 postorder: follow the task contract in the handout.
-        throw new UnsupportedOperationException("T3 postorder not implemented");
+        List<E> result = depthFirst(true);
+        Collections.reverse(result);
+        return List.copyOf(result); 
     }
 
     private List<E> depthFirst(boolean reverse) {
-        throw new UnsupportedOperationException("T3 traversal helper");
+        List<E> result = new ArrayList<>(size);
+        ArrayDeque<Node<E>> stack = new ArrayDeque<>();
+
+        if (root != null) {
+            stack.push(root);
+        }
+
+        while (!stack.isEmpty()) {
+            Node<E> current = stack.pop();
+            result.add(current.value);
+
+            if (reverse) {
+                if (current.left != null) {
+                    stack.push(current.left);
+                }
+
+                if (current.right != null) {
+                    stack.push(current.right);
+                }
+            }
+            else {
+                if (current.right != null) {
+                    stack.push(current.right);
+                }
+
+                if (current.left != null) {
+                    stack.push(current.left);
+                }
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -201,7 +234,23 @@ public final class BinarySearchTree<E> {
      */
     public List<E> levelOrder() {
         // TODO T3 breadth first: follow the task contract in the handout.
-        throw new UnsupportedOperationException("T3 breadth first not implemented");
+        List<E> result = new ArrayList<>(size);
+        ArrayDeque<Node<E>> queue = new ArrayDeque();
+
+        if (root != null) {
+            queue.add(root);
+        }
+
+        while (!queue.isEmpty()) {
+            Node<E> current = queue.remove();
+            result.add(current.value);
+
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+        }
+
+        return List.copyOf(result);
     }
 
     /**
