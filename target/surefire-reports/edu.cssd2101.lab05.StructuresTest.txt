@@ -1,0 +1,62 @@
+-------------------------------------------------------------------------------
+Test set: edu.cssd2101.lab05.StructuresTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 4, Errors: 4, Skipped: 0, Time elapsed: 0.091 s <<< FAILURE! -- in edu.cssd2101.lab05.StructuresTest
+edu.cssd2101.lab05.StructuresTest.seededTreeModelComparisonAfterEveryOperation -- Time elapsed: 0.011 s <<< ERROR!
+java.lang.UnsupportedOperationException: T2 tree deletion not implemented
+	at edu.cssd2101.lab05.BinarySearchTree.remove(BinarySearchTree.java:129)
+	at edu.cssd2101.lab05.StructuresTest.seededTreeModelComparisonAfterEveryOperation(StructuresTest.java:181)
+
+edu.cssd2101.lab05.StructuresTest.listEndpointsDuplicatesAndSnapshots -- Time elapsed: 0.011 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <java.lang.IndexOutOfBoundsException> but was: <java.lang.UnsupportedOperationException>
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3234)
+	at edu.cssd2101.lab05.StructuresTest.listEndpointsDuplicatesAndSnapshots(StructuresTest.java:15)
+Caused by: java.lang.UnsupportedOperationException: T1 list unlink not implemented
+	at edu.cssd2101.lab05.DoublyLinkedList.removeAt(DoublyLinkedList.java:115)
+	at edu.cssd2101.lab05.DoublyLinkedList.removeFirst(DoublyLinkedList.java:125)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:54)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	... 2 more
+
+edu.cssd2101.lab05.StructuresTest.treeDeletionEveryShapeAndSuccessorWithRightChild -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.UnsupportedOperationException: T2 tree deletion not implemented
+	at edu.cssd2101.lab05.BinarySearchTree.remove(BinarySearchTree.java:129)
+	at edu.cssd2101.lab05.StructuresTest.treeDeletionEveryShapeAndSuccessorWithRightChild(StructuresTest.java:140)
+
+edu.cssd2101.lab05.StructuresTest.allTreeTraversalsAndHeight -- Time elapsed: 0.002 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <[8, 3, 10, 1, 6, 14, 4, 7, 13]> but was: <[8, 3, 1]>
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
+	at edu.cssd2101.lab05.StructuresTest.allTreeTraversalsAndHeight(StructuresTest.java:100)
+
+edu.cssd2101.lab05.StructuresTest.comparatorFailureBeforeMutationAndCountedDegeneration -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <java.lang.IllegalArgumentException> but was: <java.lang.UnsupportedOperationException>
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3234)
+	at edu.cssd2101.lab05.StructuresTest.comparatorFailureBeforeMutationAndCountedDegeneration(StructuresTest.java:202)
+Caused by: java.lang.UnsupportedOperationException: T2 tree deletion not implemented
+	at edu.cssd2101.lab05.BinarySearchTree.remove(BinarySearchTree.java:129)
+	at edu.cssd2101.lab05.StructuresTest.lambda$comparatorFailureBeforeMutationAndCountedDegeneration$2(StructuresTest.java:202)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:54)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	... 2 more
+
+edu.cssd2101.lab05.StructuresTest.listInvalidOperationsPreserveState -- Time elapsed: 0.004 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <java.lang.IndexOutOfBoundsException> but was: <java.lang.UnsupportedOperationException>
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3234)
+	at edu.cssd2101.lab05.StructuresTest.listInvalidOperationsPreserveState(StructuresTest.java:54)
+Caused by: java.lang.UnsupportedOperationException: T1 list unlink not implemented
+	at edu.cssd2101.lab05.DoublyLinkedList.removeAt(DoublyLinkedList.java:115)
+	at edu.cssd2101.lab05.StructuresTest.lambda$listInvalidOperationsPreserveState$4(StructuresTest.java:54)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:54)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	... 2 more
+
+edu.cssd2101.lab05.StructuresTest.comparatorNullAndDuplicatePolicies -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.UnsupportedOperationException: T2 tree deletion not implemented
+	at edu.cssd2101.lab05.BinarySearchTree.remove(BinarySearchTree.java:129)
+	at edu.cssd2101.lab05.StructuresTest.comparatorNullAndDuplicatePolicies(StructuresTest.java:158)
+
+edu.cssd2101.lab05.StructuresTest.seededListModelComparisonAfterEveryOperation -- Time elapsed: 0.002 s <<< ERROR!
+java.lang.UnsupportedOperationException: T1 list unlink not implemented
+	at edu.cssd2101.lab05.DoublyLinkedList.removeAt(DoublyLinkedList.java:115)
+	at edu.cssd2101.lab05.StructuresTest.seededListModelComparisonAfterEveryOperation(StructuresTest.java:76)
+

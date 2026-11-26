@@ -50,7 +50,22 @@ public final class DirectedGraph<V> {
      * @throws NullPointerException if start is null
      */
     public List<V> breadthFirst(V start) {
-        // TODO T4 graph BFS: follow the task contract in the handout.
+        return traverse(start, false);
+    }
+
+    /**
+     * Explores reachable vertices depth first, honoring neighbor insertion order.
+     *
+     * @param start existing start vertex
+     * @return unmodifiable visit-order structural snapshot
+     * @throws IllegalArgumentException if start is absent
+     * @throws NullPointerException if start is null
+     */
+    public List<V> depthFirst(V start) {
+        return traverse(start, true);
+    }
+
+    private List<V> traverse(V start, boolean depth) {
         Objects.requireNonNull(start, "start must not be null");
         //Rejects a null start argument immediately with NullPointerException interacting with graph.
 
@@ -65,66 +80,53 @@ public final class DirectedGraph<V> {
         List<V> order = new ArrayList<>();
 
         //a double-ended queue used for breadth-first searching
-        Deque<V> queue = new ArrayDeque<>();
+        Deque<V> frontier = new ArrayDeque<>();
 
+        if (!depth) {
+            //Marks start as visited when enqueued (BFS enqueue marking rule)
+            visited.add(start);
 
-        //Marks start as visited when enqueued (BFS enqueue marking rule)
-        visited.add(start);
+            //Places start at the back of the queue to begin traversal.
+            frontier.addLast(start);
 
-        //Places start at the back of the queue to begin traversal.
-        queue.addLast(start);
+            while (!frontier.isEmpty()) {
+                V current = frontier.removeFirst();
+                order.add(current);
+                for (V neighbor : edges.get(current)) {
+                    if (!visited.contains(neighbor)) {
+                        visited.add(neighbor);
+                        frontier.addLast(neighbor);
+                    }
+                }
+            }
+        } else {
+            // Push start onto the stack before starting the loop, so while loop can start
+            frontier.push(start);
 
-        while (!queue.isEmpty()) {
-            V current = (V) queue.removeFirst();
-            order.add(current);
-            for (V neighbor: edges.get(current)) {
-                if (!visited.contains(neighbor)) {
-                    visited.add(neighbor);
-                    queue.addLast(neighbor);
+            while (!frontier.isEmpty()) {
+                V current = frontier.pop();
+
+                // Skips vertices already marked
+                if (visited.contains(current)) {
+                    continue;
+                }
+                visited.add(current);
+                order.add(current);
+
+                // Copies outgoing neighbors into a list to iterate in reverse insertion order.
+                List<V> neighbors = List.copyOf(edges.get(current));
+                for (int i = neighbors.size() - 1; i >= 0; i--) {
+                    V neighbor = neighbors.get(i);
+
+                    //pushes unvisited neighbors in reverse, so it is in sequential order
+                    if (!visited.contains(neighbor)) {
+                        frontier.push(neighbor);
+                    }
                 }
             }
         }
 
         //list snapshot
         return List.copyOf(order);
-    }
-
-    /**
-     * Explores reachable vertices depth first, honoring neighbor insertion order.
-     *
-     * @param start existing start vertex
-     * @return unmodifiable visit-order structural snapshot
-     * @throws IllegalArgumentException if start is absent
-     * @throws NullPointerException if start is null
-     */
-    public List<V> depthFirst(V start) {
-        // TODO T4 graph DFS: follow the task contract in the handout.
-        Set<V> visited = new HashSet<>();
-        List<V> order = new ArrayList<>();
-        Deque<V> stack = new ArrayDeque<>();
-
-        while (!stack.isEmpty()) {
-            V current = stack.pop();
-            if (visited.contains(current)) {
-                continue;
-            }
-            visited.add(current);
-            order.add(current);
-            List<V> neighbors = List.copyOf(edges.get(current));
-            for (int i = neighbors.size() - 1; i >= 0; i--) {
-                V neighbor = neighbors.get(i);
-                if (!visited.contains(neighbor)) {
-                    stack.push(neighbor);
-                }
-            }
-        }
-
-        return List.copyOf(order);
-
-    }
-
-    private List<V> traverse(V start, boolean depth) {
-
-
     }
 }
